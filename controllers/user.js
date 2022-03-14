@@ -16,16 +16,29 @@ exports.userRegister = async (userDets, res) => {
         success: false
       });
     }
+    
     try {
       const password = await bcrypt.hash(userDets.password, 12);
       const newUser = new User({
         ...userDets,
         password,
       });
+
       //console.log(newUser)
       await newUser.save();
+      let token = jwt.sign(
+        {
+          user_id: newUser._id,
+          name: newUser.name,
+          email: newUser.email
+        },
+        process.env.SECRET,
+        { expiresIn: "365 days" }
+      );
+  
       return res.status(201).json({
         name : userDets.name,
+        token : token, 
         message: "Hurry! now you are successfully registred",
         success: true
       });
