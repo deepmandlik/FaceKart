@@ -11,10 +11,6 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-
 // DB connection
 
 mongo();
@@ -31,6 +27,7 @@ app.use(cors());
 app.use(passport.initialize());
 
 require('./middlewares/passport')(passport);
+
 app.get('/',function(req,res) {
   res.sendFile('index.html');
 });
