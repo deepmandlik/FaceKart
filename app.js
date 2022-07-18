@@ -9,6 +9,7 @@ const passport = require("passport")
 const { mongo } = require("./configs/dbConnect");
 const bodyParser = require("body-parser");
 
+
 const app = express();
 
 // DB connection
@@ -32,10 +33,10 @@ app.get('/',function(req,res) {
   res.sendFile('index.html');
 });
 
-
 app.use("/user", usersRouter);
 
 const port = process.env.PORT || 8000;
+
 app.listen(port, () => {
   console.log("server is listening on port: " + port);
 });
